@@ -3,18 +3,18 @@ import 'package:error_handling_tutorial/api/http_client.dart';
 import 'package:error_handling_tutorial/api/post_service.dart';
 import 'package:error_handling_tutorial/core/failures.dart';
 import 'package:error_handling_tutorial/models/post.dart';
+import 'package:error_handling_tutorial/state_managment/post_page_state.dart';
 import 'package:flutter/foundation.dart';
 
-enum NotifierState { initial, loading, loaded }
 
 class PostChangeNotifier extends ChangeNotifier {
   final PostService _postService = PostService(httpClient: FakeHttpClient());
 
-  NotifierState _state = NotifierState.initial;
+  PostPageState _state = PostPageState.initial;
 
-  NotifierState get state => _state;
+  PostPageState get state => _state;
 
-  void setState(NotifierState state) {
+  void setState(PostPageState state) {
     _state = state;
     notifyListeners();
   }
@@ -29,7 +29,7 @@ class PostChangeNotifier extends ChangeNotifier {
   }
 
   Future<Post> getPost() async {
-    setState(NotifierState.loading);
+    setState(PostPageState.loading);
 
     //! 1st approach
     // try {
@@ -46,7 +46,7 @@ class PostChangeNotifier extends ChangeNotifier {
         .run()
         .then((value) => updatePost(value));
 
-    setState(NotifierState.loaded);
+    setState(PostPageState.loaded);
   }
 }
 

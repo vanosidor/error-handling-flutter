@@ -1,0 +1,1 @@
+enum PostPageState { initial, loading, loaded }
