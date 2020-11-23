@@ -40,15 +40,15 @@ class MyHomePage extends StatelessWidget {
             children: <Widget>[
               Consumer<PostChangeNotifier>(
                 builder: (_, postChangeNotifier, __) {
-                  // TODO make
-                  // if (snapshot.connectionState == ConnectionState.waiting) {
-                  //   return CircularProgressIndicator();
-                  // } else if (snapshot.hasError) {
-                  //   return StyledText(snapshot.error.toString());
-                  // } else if (snapshot.hasData) {
-                  //   return StyledText(snapshot.data.toString());
-                  // } else
-                  //   return StyledText('Click here 👇');
+                  if (postChangeNotifier.state == NotifierState.initial)
+                    return StyledText('Click here 👇');
+                  else if (postChangeNotifier.state == NotifierState.loading)
+                    return CircularProgressIndicator();
+                  else {
+                    return postChangeNotifier.post.fold(
+                        (failure) => StyledText(failure.toString()),
+                        (post) => StyledText(post.toString()));
+                  }
                 },
               ),
               SizedBox(

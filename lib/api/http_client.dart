@@ -1,3 +1,5 @@
+import 'dart:io';
+
 abstract class HttpClient {
   Future<String> getResponseBody(String url);
 }
@@ -12,6 +14,8 @@ class FakeHttpClient implements HttpClient {
 
     //! Format exception
     // return 'abc';
+
+    // throw UnsupportedError('unsupported');
 
     return '{"userId":1, "id":1, "title":"test", "body":"Test body"}';
   }
